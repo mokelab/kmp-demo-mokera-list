@@ -36,6 +36,7 @@ kotlin {
 }
 
 dependencies {
+    api(projects.core.model)
 
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)
