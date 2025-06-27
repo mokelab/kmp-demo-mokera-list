@@ -24,3 +24,5 @@ dependencyResolutionManagement {
 rootProject.name = "KMPDemoMokeraList"
 include(":app")
 include(":core:design")
+include(":core:data")
+include(":core:model")
