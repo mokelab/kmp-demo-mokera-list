@@ -1,4 +1,4 @@
-package com.mokelab.demo.kmp.mokeralist.ui.theme
+package com.mokelab.demo.kmp.mokeralist.core.design.theme
 
 import android.app.Activity
 import android.os.Build
