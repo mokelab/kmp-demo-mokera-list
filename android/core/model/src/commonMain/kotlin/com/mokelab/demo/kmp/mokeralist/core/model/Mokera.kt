@@ -1,5 +1,7 @@
 package com.mokelab.demo.kmp.mokeralist.core.model
 
+import kotlin.jvm.JvmInline
+
 @JvmInline
 value class MokeraId(val value: String)
 

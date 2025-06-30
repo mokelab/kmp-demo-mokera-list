@@ -11,6 +11,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
+import kotlinx.serialization.json.Json
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -44,6 +45,20 @@ object MainModule {
         return kotlinx.coroutines.Dispatchers.IO
     }
 
+    @Provides
+    @Singleton
+    fun provideNetworkMokeraDataSource(
+        @Named("baseUrl") baseUrl: String,
+        client: HttpClient,
+        json: Json,
+    ): NetworkMokeraDataSource {
+        return HttpMokeraDataSource(
+            baseUrl = baseUrl,
+            client = client,
+            json = json,
+        )
+    }
+
 }
 
 @Module
@@ -54,10 +69,4 @@ abstract class BindingModule {
     abstract fun bindMokeraRepository(
         impl: OnlineMokeraRepository,
     ): MokeraRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindNetworkMokeraDataSource(
-        impl: HttpMokeraDataSource,
-    ): NetworkMokeraDataSource
 }

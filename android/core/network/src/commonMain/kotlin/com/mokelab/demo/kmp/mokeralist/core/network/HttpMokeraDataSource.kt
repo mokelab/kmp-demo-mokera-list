@@ -7,10 +7,9 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Implementation of [NetworkMokeraDataSource] that fetches Mokeras from a remote server using HTTP.
@@ -19,11 +18,11 @@ import javax.inject.Named
  * @property client The HTTP client used to make network requests.
  * @property dispatcher The coroutine dispatcher for executing network requests, defaulting to [Dispatchers.IO].
  */
-class HttpMokeraDataSource @Inject constructor(
-    @Named("baseUrl") private val baseUrl: String,
+class HttpMokeraDataSource(
+    private val baseUrl: String,
     private val client: HttpClient,
     private val json: Json,
-    @Named("ioDispatcher") private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : NetworkMokeraDataSource {
     override suspend fun fetchMokeras(): List<Mokera> = withContext(dispatcher) {
         val response = client.get("$baseUrl/mokeras.json")
