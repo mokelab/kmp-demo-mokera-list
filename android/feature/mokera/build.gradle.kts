@@ -1,12 +1,13 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.mokelab.demo.kmp.mokeralist.core.data"
+    namespace = "com.mokelab.demo.kmp.mokeralist.feature.mokera"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -38,10 +39,11 @@ kotlin {
 }
 
 dependencies {
-    api(projects.core.model)
-    implementation(projects.core.network)
+    implementation(projects.core.design)
+    implementation(projects.core.data)
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
