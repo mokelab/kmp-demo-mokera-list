@@ -4,7 +4,6 @@ import com.mokelab.demo.kmp.mokeralist.core.data.MokeraRepository
 import com.mokelab.demo.kmp.mokeralist.core.data.OnlineMokeraRepository
 import com.mokelab.demo.kmp.mokeralist.core.network.HttpMokeraDataSource
 import com.mokelab.demo.kmp.mokeralist.core.network.NetworkMokeraDataSource
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,14 +58,13 @@ object MainModule {
         )
     }
 
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class BindingModule {
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindMokeraRepository(
-        impl: OnlineMokeraRepository,
-    ): MokeraRepository
+    fun provideMokeraRepository(
+        dataSource: NetworkMokeraDataSource,
+    ): MokeraRepository {
+        return OnlineMokeraRepository(
+            dataSource = dataSource,
+        )
+    }
 }
