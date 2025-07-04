@@ -1,0 +1,8 @@
+framework module "kmpKit" {
+    umbrella header "kmpKit.h"
+
+    export *
+    module * { export * }
+
+    use Foundation
+}
