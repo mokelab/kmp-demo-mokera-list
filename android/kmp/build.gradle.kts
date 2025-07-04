@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
@@ -32,21 +34,37 @@ kotlin {
     // https://developer.android.com/kotlin/multiplatform/migrate
     val xcfName = "kmpKit"
 
+    val xcf = XCFramework(xcfName)
     iosX64 {
         binaries.framework {
             baseName = xcfName
+            isStatic = true
+            export(projects.core.data)
+            export(projects.core.model)
+            export(projects.core.network)
+            xcf.add(this)
         }
     }
 
     iosArm64 {
         binaries.framework {
             baseName = xcfName
+            isStatic = true
+            export(projects.core.data)
+            export(projects.core.model)
+            export(projects.core.network)
+            xcf.add(this)
         }
     }
 
     iosSimulatorArm64 {
         binaries.framework {
             baseName = xcfName
+            isStatic = true
+            export(projects.core.data)
+            export(projects.core.model)
+            export(projects.core.network)
+            xcf.add(this)
         }
     }
 
@@ -60,6 +78,9 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.stdlib)
                 // Add KMP dependencies here
+                api(projects.core.data)
+                api(projects.core.network)
+                api(projects.core.model)
             }
         }
 
